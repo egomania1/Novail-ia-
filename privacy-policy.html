@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Novail</title>
+    <style>
+        body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Navbar transparente ronde minimaliste style Apple */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 14px 50px;
+            max-width: 800px;
+            min-width: 600px;
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 50px; /* Complètement rond */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            font-weight: 500;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 25px;
+        }
+        
+        .nav-links li {
+            margin: 0;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 400;
+            transition: color 0.2s ease;
+            letter-spacing: -0.3px;
+        }
+        
+        .nav-links a:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+        
+        .nav-links a.active {
+            color: #00a8ff;
+            font-weight: 600;
+        }
+        
+        .language-switch {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+        
+        .language-switch button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .language-switch button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .language-switch button.active {
+            background: rgba(0, 168, 255, 0.3);
+            border-color: rgba(0, 168, 255, 0.5);
+        }
+        
+        /* Styles pour le contenu principal */
+        main {
+            padding-top: 100px;
+            color: white;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .privacy-hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .privacy-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .privacy-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .privacy-content {
+            padding: 60px 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .privacy-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+        
+        .privacy-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: white;
+            border-bottom: 1px solid rgba(0, 168, 255, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .privacy-section h3 {
+            font-size: 1.4rem;
+            margin: 20px 0 15px;
+            color: #00a8ff;
+        }
+        
+        .privacy-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .privacy-section ul {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .privacy-section li {
+            margin-bottom: 10px;
+        }
+        
+        .privacy-section strong {
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 50px 40px 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #00a8ff;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #00a8ff;
+        }
+        
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Conteneur pour l'effet d'iridescence */
+        #iridescence-root {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 10px 20px;
+                min-width: auto;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .privacy-content {
+                padding: 30px 20px;
+            }
+            
+            .privacy-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec navigation -->
+    <!-- Barre de navigation transparente -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>Nov<span class="highlight">AI</span>l</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="page-noire.html">Home</a></li>
+                <li><a href="solution.html">Solution</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="language-switch">
+                <button onclick="switchLanguage('fr')">FR</button>
+                <button onclick="switchLanguage('en')" class="active">EN</button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Conteneur pour l'effet d'iridescence -->
+    <div id="iridescence-root"></div>
+
+    <!-- Section principale -->
+    <main>
+        <section class="privacy-hero">
+            <h1>Privacy Policy</h1>
+            <p>How we collect, use, and protect your personal information</p>
+        </section>
+
+        <section class="privacy-content">
+            <div class="privacy-section">
+                <h2>Introduction</h2>
+                <p>This Privacy Policy describes how Novail SAS ("we", "our", or "us") collects, uses, and protects your personal information when you use our website and services. We are committed to ensuring the privacy and security of your personal data in compliance with the General Data Protection Regulation (GDPR) and other applicable data protection laws.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>Data Controller</h2>
+                <p>Novail SAS is the data controller responsible for your personal data.</p>
+                <p><strong>Contact:</strong> privacy@novail.com</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>Information We Collect</h2>
+                <h3>Personal Data You Provide</h3>
+                <ul>
+                    <li>Name and contact information (email address, phone number)</li>
+                    <li>Company information and job title</li>
+                    <li>Payment information (processed securely through our payment partners)</li>
+                    <li>Communication preferences</li>
+                </ul>
+                
+                <h3>Data Collected Automatically</h3>
+                <ul>
+                    <li>Technical information (IP address, browser type, device information)</li>
+                    <li>Usage data (pages visited, time spent on site, navigation patterns)</li>
+                    <li>Cookies and similar tracking technologies</li>
+                </ul>
+                
+                <h3>Email Data (With Your Consent)</h3>
+                <ul>
+                    <li>Email content and metadata (subject, sender, recipients, timestamps)</li>
+                    <li>Email attachments (processed securely and temporarily)</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>How We Use Your Information</h2>
+                <ul>
+                    <li>To provide and improve our email management services</li>
+                    <li>To personalize your user experience</li>
+                    <li>To communicate with you about our services</li>
+                    <li>To process transactions and send transactional emails</li>
+                    <li>To comply with legal obligations</li>
+                    <li>To protect our rights and prevent fraud</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>Legal Basis for Processing</h2>
+                <ul>
+                    <li><strong>Contract Performance:</strong> Processing necessary to fulfill our service agreement with you</li>
+                    <li><strong>Legitimate Interests:</strong> Processing for business purposes like security and analytics</li>
+                    <li><strong>Consent:</strong> Processing based on your explicit consent (especially for email analysis)</li>
+                    <li><strong>Legal Obligation:</strong> Processing required to comply with applicable laws</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>Data Sharing and Disclosure</h2>
+                <p>We may share your personal data with:</p>
+                <ul>
+                    <li><strong>Service Providers:</strong> Third-party vendors who assist in delivering our services</li>
+                    <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
+                    <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets</li>
+                </ul>
+                <p>We do not sell or rent your personal data to third parties for marketing purposes.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>Data Security</h2>
+                <p>We implement appropriate technical and organizational measures to protect your personal data, including:</p>
+                <ul>
+                    <li>Encryption of data in transit and at rest</li>
+                    <li>Regular security assessments and audits</li>
+                    <li>Access controls and authentication mechanisms</li>
+                    <li>Employee training on data protection</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>Your Rights</h2>
+                <p>Under GDPR, you have the following rights regarding your personal data:</p>
+                <ul>
+                    <li><strong>Right to Access:</strong> Obtain confirmation and copies of your personal data</li>
+                    <li><strong>Right to Rectification:</strong> Correct inaccurate or incomplete data</li>
+                    <li><strong>Right to Erasure:</strong> Request deletion of your personal data</li>
+                    <li><strong>Right to Restrict Processing:</strong> Limit how we process your data</li>
+                    <li><strong>Right to Data Portability:</strong> Receive your data in a structured format</li>
+                    <li><strong>Right to Object:</strong> Object to processing based on legitimate interests</li>
+                    <li><strong>Rights Related to Automated Decision-Making:</strong> Not to be subject to automated decisions</li>
+                </ul>
+                <p>To exercise these rights, please contact us at privacy@novail.com</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>Data Retention</h2>
+                <p>We retain your personal data only for as long as necessary to fulfill the purposes outlined in this policy, unless a longer retention period is required by law.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>International Data Transfers</h2>
+                <p>Your data may be transferred to and processed in countries outside the European Economic Area (EEA) where data protection laws may differ.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>Changes to This Policy</h2>
+                <p>We may update this Privacy Policy from time to time. We will notify you of any significant changes by posting the new policy on our website and updating the effective date.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>Contact Us</h2>
+                <p>If you have questions about this Privacy Policy or concerns about your privacy, please contact us:</p>
+                <p><strong>Email:</strong> privacy@novail.com</p>
+                <p><strong>Address:</strong> 123 Tech Street, 75001 Paris, France</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer uniforme -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Nov<span class="highlight">AI</span>l</h3>
+                <p>Innovative email management solutions powered by artificial intelligence.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="page-noire.html">Home</a></li>
+                    <li><a href="solution.html">Solution</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="legal-notice.html">Legal Notice</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: contact@novail.com</p>
+                <p>Phone: +33 1 23 45 67 89</p>
+                <p>Address: 123 Tech Street, Paris, France</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Novail. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Simulation de l'importation du module Iridescence
+        // Puisque nous ne pouvons pas exécuter npm install, nous allons recréer l'effet ici
+        
+        // Importation simulée de OGL
+        import { Renderer, Program, Mesh, Color, Geometry } from 'https://cdn.skypack.dev/ogl@0.0.102';
+        
+        // Vertex shader
+        const vertexShader = `
+            attribute vec2 uv;
+            attribute vec2 position;
+            
+            varying vec2 vUv;
+            
+            void main() {
+                vUv = uv;
+                gl_Position = vec4(position, 0, 1);
+            }
+        `;
+        
+        // Fragment shader
+        const fragmentShader = `
+            precision highp float;
+            
+            uniform float uTime;
+            uniform vec3 uColor;
+            uniform vec3 uResolution;
+            uniform vec2 uMouse;
+            uniform float uAmplitude;
+            uniform float uSpeed;
+            
+            varying vec2 vUv;
+            
+            void main() {
+                float mr = min(uResolution.x, uResolution.y);
+                vec2 uv = (vUv.xy * 2.0 - 1.0) * uResolution.xy / mr;
+                
+                uv += (uMouse - vec2(0.5)) * uAmplitude;
+                
+                float d = -uTime * 0.5 * uSpeed;
+                float a = 0.0;
+                for (float i = 0.0; i < 8.0; ++i) {
+                    a += cos(i - d - a * uv.x);
+                    d += sin(uv.y * i + a);
+                }
+                d += uTime * 0.5 * uSpeed;
+                
+                // Définition des deux couleurs - gris plus clair pour être plus voyant
+                vec3 blueEgyptien = vec3(0.06, 0.2, 0.65); // Bleu égyptien (16, 52, 166)
+                vec3 grisAnthracite = vec3(0.35, 0.35, 0.35); // Gris anthracite plus clair et voyant
+                
+                // Créer un pattern simple basé sur les calculs existants pour mixer les couleurs
+                float pattern = cos(uv.x * 2.0 + d) * cos(uv.y * 2.0 + a) * 0.5 + 0.5;
+                
+                // Mixer uniquement entre bleu et gris, sans autres couleurs
+                vec3 col = mix(blueEgyptien, grisAnthracite, pattern);
+                
+                // Appliquer l'intensité basée sur le pattern pour créer de la profondeur
+                float intensity = cos(uv.x * 3.0 + d) * cos(uv.y * 3.0 + a) * 0.3 + 0.7;
+                col *= intensity;
+                
+                gl_FragColor = vec4(col, 1.0);
+            }
+        `;
+        
+        // Initialisation de l'effet
+        function initIridescence() {
+            const container = document.getElementById('iridescence-root');
+            if (!container) return;
+            
+            // Initialisation du renderer
+            const renderer = new Renderer({ dpr: Math.min(2, window.devicePixelRatio) });
+            const gl = renderer.gl;
+            gl.clearColor(0, 0, 0, 1); // Fond noir
+            
+            // Redimensionnement
+            function resize() {
+                renderer.setSize(container.offsetWidth, container.offsetHeight);
+            }
+            window.addEventListener('resize', resize, false);
+            resize();
+            
+            // Géométrie (quad fullscreen)
+            const geometry = new Geometry(gl);
+            
+            const positions = new Float32Array([
+                -1, -1,  // bas gauche
+                 1, -1,  // bas droit
+                 1,  1,  // haut droit
+                -1,  1   // haut gauche
+            ]);
+            
+            const uvs = new Float32Array([
+                0, 0,  // bas gauche
+                1, 0,  // bas droit
+                1, 1,  // haut droit
+                0, 1   // haut gauche
+            ]);
+            
+            const index = new Uint16Array([
+                0, 1, 2,  // premier triangle
+                0, 2, 3   // deuxième triangle
+            ]);
+            
+            geometry.addAttribute('position', { size: 2, data: positions });
+            geometry.addAttribute('uv', { size: 2, data: uvs });
+            geometry.setIndex({ data: index });
+            
+            // Programme shader - ici sont les couleurs de l'effet
+            const program = new Program(gl, {
+                vertex: vertexShader,
+                fragment: fragmentShader,
+                uniforms: {
+                    uTime: { value: 0 },
+                    uColor: { value: new Color(0.19, 0.44, 0.48) }, // Gris anthracite (48, 48, 48) converti en valeurs entre 0 et 1
+                    uResolution: {
+                        value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
+                    },
+                    uMouse: { value: new Float32Array([0.5, 0.5]) },
+                    uAmplitude: { value: 0.1 },
+                    uSpeed: { value: 0.15 } // Vitesse très lente
+                }
+            });
+            
+            // Maillage
+            const mesh = new Mesh(gl, { geometry, program });
+            
+            // Variables pour l'animation
+            let startTime = Date.now();
+            
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Mise à jour du temps
+                const elapsed = (Date.now() - startTime) * 0.001;
+                program.uniforms.uTime.value = elapsed;
+                
+                // Mise à jour de la résolution
+                program.uniforms.uResolution.value = new Color(
+                    gl.canvas.width,
+                    gl.canvas.height,
+                    gl.canvas.width / gl.canvas.height
+                );
+                
+                // Rendu
+                renderer.render({ scene: mesh });
+            }
+            
+            // Démarrage de l'animation
+            animate();
+            
+            // Ajout du canvas au conteneur
+            container.appendChild(gl.canvas);
+        }
+        
+        // Appeler l'initialisation après le chargement du DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initIridescence);
+        } else {
+            initIridescence();
+        }
+        
+        // Fonction de changement de langue (à implémenter)
+        function switchLanguage(lang) {
+            // Cette fonction peut être développée pour gérer le changement de langue
+            console.log('Changement de langue vers:', lang);
+        }
+    </script></body>
+</html>

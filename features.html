@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVAIL IA - Features</title>
+    <style>
+        body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Animation d'apparition des cartes */
+        @keyframes cardFadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .showcase-column {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: cardFadeInUp 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+        
+        .showcase-column[data-column="0"] {
+            animation-delay: 0.2s;
+        }
+        
+        .showcase-column[data-column="1"] {
+            animation-delay: 0.4s;
+        }
+        
+        .showcase-column[data-column="2"] {
+            animation-delay: 0.6s;
+        }
+        
+        /* Navbar transparente ronde minimaliste style Apple */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 14px 50px;
+            max-width: 800px;
+            min-width: 600px;
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 50px; /* Complètement rond */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            font-weight: 500;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 25px;
+        }
+        
+        .nav-links li {
+            margin: 0;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 400;
+            transition: color 0.2s ease;
+            letter-spacing: -0.3px;
+        }
+        
+        .nav-links a:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+        
+        .contenu {
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        p {
+            font-size: 1.2em;
+            max-width: 600px;
+            line-height: 1.6;
+            margin: 0 auto 15px;
+        }
+        
+        /* Style pour les boutons Call to Action */
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 15px 10px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            color: white;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cta-button.primary {
+            background: rgba(16, 52, 166, 0.7); /* Bleu égyptien avec transparence */
+            border-color: rgba(16, 52, 166, 0.5);
+        }
+        
+        .cta-button.primary:hover {
+            background: rgba(16, 52, 166, 0.9);
+        }
+        
+        /* Style pour le bouton de changement de langue */
+        .language-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .language-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Conteneur pour l'effet d'iridescence */
+        #iridescence-root {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        /* Animation de la clé de chiffrement */
+        @keyframes rotateKey {
+            0% {
+                transform: rotateY(0deg) rotateX(10deg);
+            }
+            100% {
+                transform: rotateY(360deg) rotateX(10deg);
+            }
+        }
+        
+        /* Animation d'apparition */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Section Features */
+        .features-section {
+            padding: 100px 40px;
+            min-height: 100vh;
+            color: #ffffff;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #00a8ff;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: left;
+        }
+        
+        .card-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00a8ff;
+            margin-bottom: 10px;
+        }
+        
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .tag {
+            background: rgba(0, 168, 255, 0.1);
+            color: #00a8ff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* Section Tarification */
+        .pricing-section {
+            padding: 100px 40px;
+            background: #000;
+            color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid #00a8ff;
+            position: relative;
+        }
+        
+        .popular-tag {
+            position: absolute;
+            top: -12px;
+            right: 30px;
+            background: #00a8ff;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #00a8ff;
+        }
+        
+        .price-period {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .pricing-features {
+            list-style-type: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+        
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-features li i {
+            margin-right: 10px;
+            color: #00a8ff;
+        }
+        
+        .pricing-features li.unavailable {
+            opacity: 0.5;
+        }
+        
+        .pricing-features li.unavailable i {
+            color: #666;
+        }
+    </style>
+    <link rel="stylesheet" href="MetallicPaint.css">
+</head>
+<body>
+    <!-- Barre de navigation transparente -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="page-noire.html" data-lang="home">Home</a></li>
+                <li><a href="solution.html" data-lang="solution">Solution</a></li>
+                <li><a href="features.html" data-lang="features">Features</a></li>
+                <li><a href="offers-vision.html" data-lang="offers-vision">Offers & Vision</a></li>
+                <li><a href="cyber-city.html" data-lang="cyber-city">Cyber City</a></li>
+                <li><a href="contact.html" data-lang="contact">Contact</a></li>
+            </ul>
+            <button id="language-toggle" class="language-button">FR</button>
+        </div>
+    </nav>
+    
+    <!-- Conteneur pour l'effet d'iridescence -->
+    <div id="iridescence-root"></div>
+    
+    <!-- Fonctionnalités de NOVAIL -->
+    <section class="features-section">
+        <div class="contenu">
+            <h2 class="section-title" id="novail-features-title">NOVAIL Features</h2>
+            <p class="section-subtitle" id="novail-features-subtitle">Discover the advanced features of our automated cybersecurity solution.</p>
+        </div>
+        
+        <div class="features-grid">
+            <!-- Colonne 1 -->
+            <div class="feature-card">
+                <div class="card-number">01</div>
+                <h3 id="feature1-title">Real-Time Protection</h3>
+                <p id="feature1-desc">Automatically protects sensitive data in real time and blocks suspicious behavior or unauthorized access. Our system continuously monitors your data streams and instantly neutralizes potential threats before they can cause damage.</p>
+                <div class="card-tags">
+                    <span class="tag">Encryption</span>
+                    <span class="tag">Security</span>
+                    <span class="tag">Protection</span>
+                </div>
+            </div>
+            
+            <!-- Colonne 2 -->
+            <div class="feature-card">
+                <div class="card-number">02</div>
+                <h3 id="feature2-title">Threat Detection</h3>
+                <p id="feature2-desc">Real-time threat detection and response to keep your data secure against evolving cyber threats. Our cutting-edge AI technology identifies and responds to threats before they can cause damage, using machine learning algorithms for pattern recognition and behavioral analysis.</p>
+                <div class="card-tags">
+                    <span class="tag">AI</span>
+                    <span class="tag">Detection</span>
+                    <span class="tag">Response</span>
+                </div>
+            </div>
+            
+            <!-- Colonne 3 -->
+            <div class="feature-card">
+                <div class="card-number">03</div>
+                <h3 id="feature3-title">Detailed Analytics</h3>
+                <p id="feature3-desc">Comprehensive dashboard with detailed analytics to monitor your security posture at a glance. Gain complete visibility into your security with real-time metrics, customizable reporting, historical trend analysis, and compliance reporting tools.</p>
+                <div class="card-tags">
+                    <span class="tag">Dashboard</span>
+                    <span class="tag">Analytics</span>
+                    <span class="tag">Reporting</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script type="module">
+        // Simulation de l'importation du module Iridescence
+        // Puisque nous ne pouvons pas exécuter npm install, nous allons recréer l'effet ici
+        
+        // Importation simulée de OGL
+        import { Renderer, Program, Mesh, Color, Geometry } from 'https://cdn.skypack.dev/ogl@0.0.102';
+        
+        // Vertex shader
+        const vertexShader = `
+            attribute vec2 uv;
+            attribute vec2 position;
+            
+            varying vec2 vUv;
+            
+            void main() {
+                vUv = uv;
+                gl_Position = vec4(position, 0, 1);
+            }
+        `;
+        
+        // Fragment shader
+        const fragmentShader = `
+            precision highp float;
+            
+            uniform float uTime;
+            uniform vec3 uColor;
+            uniform vec3 uResolution;
+            uniform vec2 uMouse;
+            uniform float uAmplitude;
+            uniform float uSpeed;
+            
+            varying vec2 vUv;
+            
+            void main() {
+                float mr = min(uResolution.x, uResolution.y);
+                vec2 uv = (vUv.xy * 2.0 - 1.0) * uResolution.xy / mr;
+                
+                uv += (uMouse - vec2(0.5)) * uAmplitude;
+                
+                float d = -uTime * 0.5 * uSpeed;
+                float a = 0.0;
+                for (float i = 0.0; i < 8.0; ++i) {
+                    a += cos(i - d - a * uv.x);
+                    d += sin(uv.y * i + a);
+                }
+                d += uTime * 0.5 * uSpeed;
+                
+                // Définition des deux couleurs - gris plus clair pour être plus voyant
+                vec3 blueEgyptien = vec3(0.06, 0.2, 0.65); // Bleu égyptien (16, 52, 166)
+                vec3 grisAnthracite = vec3(0.35, 0.35, 0.35); // Gris anthracite plus clair et voyant
+                
+                // Créer un pattern simple basé sur les calculs existants pour mixer les couleurs
+                float pattern = cos(uv.x * 2.0 + d) * cos(uv.y * 2.0 + a) * 0.5 + 0.5;
+                
+                // Mixer uniquement entre bleu et gris, sans autres couleurs
+                vec3 col = mix(blueEgyptien, grisAnthracite, pattern);
+                
+                // Appliquer l'intensité basée sur le pattern pour créer de la profondeur
+                float intensity = cos(uv.x * 3.0 + d) * cos(uv.y * 3.0 + a) * 0.3 + 0.7;
+                col *= intensity;
+                
+                gl_FragColor = vec4(col, 1.0);
+            }
+        `;
+        
+        // Initialisation de l'effet
+        function initIridescence() {
+            const container = document.getElementById('iridescence-root');
+            if (!container) return;
+            
+            // Initialisation du renderer
+            const renderer = new Renderer({ dpr: Math.min(2, window.devicePixelRatio) });
+            const gl = renderer.gl;
+            gl.clearColor(0, 0, 0, 1); // Fond noir
+            
+            // Redimensionnement
+            function resize() {
+                renderer.setSize(container.offsetWidth, container.offsetHeight);
+            }
+            window.addEventListener('resize', resize, false);
+            resize();
+            
+            // Géométrie (quad fullscreen)
+            const geometry = new Geometry(gl);
+            
+            const positions = new Float32Array([
+                -1, -1,  // bas gauche
+                 1, -1,  // bas droit
+                 1,  1,  // haut droit
+                -1,  1   // haut gauche
+            ]);
+            
+            const uvs = new Float32Array([
+                0, 0,  // bas gauche
+                1, 0,  // bas droit
+                1, 1,  // haut droit
+                0, 1   // haut gauche
+            ]);
+            
+            const index = new Uint16Array([
+                0, 1, 2,  // premier triangle
+                0, 2, 3   // deuxième triangle
+            ]);
+            
+            geometry.addAttribute('position', { size: 2, data: positions });
+            geometry.addAttribute('uv', { size: 2, data: uvs });
+            geometry.setIndex({ data: index });
+            
+            // Programme shader - ici sont les couleurs de l'effet
+            const program = new Program(gl, {
+                vertex: vertexShader,
+                fragment: fragmentShader,
+                uniforms: {
+                    uTime: { value: 0 },
+                    uColor: { value: new Color(0.19, 0.44, 0.48) }, // Gris anthracite (48, 48, 48) converti en valeurs entre 0 et 1
+                    uResolution: {
+                        value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
+                    },
+                    uMouse: { value: new Float32Array([0.5, 0.5]) },
+                    uAmplitude: { value: 0.1 },
+                    uSpeed: { value: 0.15 } // Vitesse très lente
+                }
+            });
+            
+            // Maillage
+            const mesh = new Mesh(gl, { geometry, program });
+            
+            // Variables pour l'animation
+            let startTime = Date.now();
+            
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Mise à jour du temps
+                const elapsed = (Date.now() - startTime) * 0.001;
+                program.uniforms.uTime.value = elapsed;
+                
+                // Mise à jour de la résolution
+                program.uniforms.uResolution.value = new Color(
+                    gl.canvas.width,
+                    gl.canvas.height,
+                    gl.canvas.width / gl.canvas.height
+                );
+                
+                // Rendu
+                renderer.render({ scene: mesh });
+            }
+            
+            // Démarrage de l'animation
+            animate();
+            
+            // Ajout du canvas au conteneur
+            container.appendChild(gl.canvas);
+        }
+        
+        // Appeler l'initialisation après le chargement du DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initIridescence);
+        } else {
+            initIridescence();
+        }
+    </script>
+    
+    <!-- Script pour le changement de langue -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageToggle = document.getElementById('language-toggle');
+            const navLinks = document.querySelectorAll('.nav-links a[data-lang]');
+            let currentLanguage = 'en'; // Langue par défaut
+            
+            // Textes traduits
+            const translations = {
+                en: {
+                    home: 'Home',
+                    features: 'Features',
+                    pricing: 'Pricing',
+                    about: 'About',
+                    contact: 'Contact',
+                    pageTitle: 'Powerful Features for Complete Protection',
+                    pageSubtitle: 'Discover how NOVAIL IA keeps your business secure with advanced cybersecurity capabilities.',
+                    ctaTitle: 'Ready to Secure Your Business?',
+                    ctaDesc: 'Join hundreds of companies that trust NOVAIL IA for their cybersecurity needs.',
+                    ctaButton: 'Get Started Today',
+                    novailFeaturesTitle: 'NOVAIL Features',
+                    novailFeaturesSubtitle: 'Discover the advanced features of our automated cybersecurity solution.',
+                    feature1Title: 'Real-Time Protection',
+                    feature1Desc: 'Automatically protects sensitive data in real time and blocks suspicious behavior or unauthorized access. Our system continuously monitors your data streams and instantly neutralizes potential threats before they can cause damage.',
+                    feature2Title: 'Threat Detection',
+                    feature2Desc: 'Real-time threat detection and response to keep your data secure against evolving cyber threats. Our cutting-edge AI technology identifies and responds to threats before they can cause damage, using machine learning algorithms for pattern recognition and behavioral analysis.',
+                    feature3Title: 'Detailed Analytics',
+                    feature3Desc: 'Comprehensive dashboard with detailed analytics to monitor your security posture at a glance. Gain complete visibility into your security with real-time metrics, customizable reporting, historical trend analysis, and compliance reporting tools.'
+                },
+                fr: {
+                    home: 'Accueil',
+                    features: 'Fonctionnalités',
+                    pricing: 'Tarification',
+                    about: 'À propos',
+                    contact: 'Contact',
+                    pageTitle: 'Fonctionnalités Puissantes pour une Protection Complète',
+                    pageSubtitle: 'Découvrez comment NOVAIL IA sécurise votre entreprise avec des capacités avancées de cybersécurité.',
+                    ctaTitle: 'Prêt à Sécuriser Votre Entreprise ?',
+                    ctaDesc: 'Rejoignez des centaines d\'entreprises qui font confiance à NOVAIL IA pour leurs besoins en cybersécurité.',
+                    ctaButton: 'Commencer Aujourd\'hui',
+                    novailFeaturesTitle: 'Fonctionnalités de NOVAIL',
+                    novailFeaturesSubtitle: 'Découvrez les fonctionnalités avancées de notre solution de cybersécurité automatisée.',
+                    feature1Title: 'Protection en Temps Réel',
+                    feature1Desc: 'Protège automatiquement les données sensibles en temps réel et bloque les comportements suspects ou les accès non autorisés. Notre système surveille en continu vos flux de données et neutralise instantanément les menaces potentielles avant qu\'elles ne puissent causer de dommages.',
+                    feature2Title: 'Détection des Menaces',
+                    feature2Desc: 'Détection et réponse aux menaces en temps réel pour sécuriser vos données contre les cybermenaces évolutives. Notre technologie d\'IA de pointe identifie et répond aux menaces avant qu\'elles ne puissent causer de dommages, en utilisant des algorithmes d\'apprentissage automatique pour la reconnaissance de motifs et l\'analyse comportementale.',
+                    feature3Title: 'Analyses Détaillées',
+                    feature3Desc: 'Tableau de bord complet avec des analyses détaillées pour surveiller votre posture de sécurité en un coup d\'œil. Obtenez une visibilité complète sur votre sécurité avec des mesures en temps réel, des rapports personnalisables, une analyse des tendances historiques et des outils de rapport de conformité.'
+                }
+            };
+            
+            // Changement de langue
+            languageToggle.addEventListener('click', function() {
+                currentLanguage = currentLanguage === 'en' ? 'fr' : 'en';
+                languageToggle.textContent = currentLanguage.toUpperCase();
+                
+                // Mettre à jour les textes de la navbar
+                navLinks.forEach(link => {
+                    const key = link.getAttribute('data-lang');
+                    if (translations[currentLanguage][key]) {
+                        link.textContent = translations[currentLanguage][key];
+                    }
+                });
+                
+                // Mettre à jour les textes de la page
+                document.querySelector('h1').textContent = translations[currentLanguage].pageTitle;
+                document.querySelector('p').textContent = translations[currentLanguage].pageSubtitle;
+                
+                // Mettre à jour les cartes de fonctionnalités
+                document.getElementById('novail-features-title').textContent = translations[currentLanguage].novailFeaturesTitle;
+                document.getElementById('novail-features-subtitle').textContent = translations[currentLanguage].novailFeaturesSubtitle;
+                document.getElementById('feature1-title').textContent = translations[currentLanguage].feature1Title;
+                document.getElementById('feature1-desc').textContent = translations[currentLanguage].feature1Desc;
+                document.getElementById('feature2-title').textContent = translations[currentLanguage].feature2Title;
+                document.getElementById('feature2-desc').textContent = translations[currentLanguage].feature2Desc;
+                document.getElementById('feature3-title').textContent = translations[currentLanguage].feature3Title;
+                document.getElementById('feature3-desc').textContent = translations[currentLanguage].feature3Desc;
+                
+                // Mettre à jour la section CTA
+                document.getElementById('cta-title').textContent = translations[currentLanguage].ctaTitle;
+                document.getElementById('cta-desc').textContent = translations[currentLanguage].ctaDesc;
+                document.getElementById('cta-button').textContent = translations[currentLanguage].ctaButton;
+            });
+        });
+    </script>
+    
+    <!-- Footer -->
+    <footer style="background: #0a0a0a; color: #ffffff; padding: 40px 20px; margin-top: 50px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            <div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 20px;">NOVAIL IA</h3>
+                <p style="color: #cccccc; line-height: 1.6;">Simple and effective cybersecurity for businesses. Protect your sensitive data without complexity.</p>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(16, 52, 166, 0.2); border-radius: 8px; border: 1px solid rgba(16, 52, 166, 0.5);">
+                    <h4 style="margin-top: 0; color: #00a8ff;">Partner with Us</h4>
+                    <p style="color: #cccccc; margin-bottom: 15px; font-size: 0.9rem;">We're looking for partners, investors, and pilot companies to join us in making cybersecurity simple and accessible.</p>
+                    <a href="contact.html" style="display: inline-block; background: #00a8ff; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Join Our Mission</a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 style="font-size: 1.2rem; margin-bottom: 15px;">Quick Links</h4>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 10px;"><a href="page-noire.html" style="color: #cccccc; text-decoration: none;">Home</a></li>
+                    <li style="margin-bottom: 10px;"><a href="solution.html" style="color: #cccccc; text-decoration: none;">Solution</a></li>
+                    <li style="margin-bottom: 10px;"><a href="features.html" style="color: #cccccc; text-decoration: none;">Features</a></li>
+                    <li style="margin-bottom: 10px;"><a href="offers-vision.html" style="color: #cccccc; text-decoration: none;">Offers & Vision</a></li>
+                    <li style="margin-bottom: 10px;"><a href="cyber-city.html" style="color: #cccccc; text-decoration: none;">Cyber City</a></li>
+                    <li style="margin-bottom: 10px;"><a href="contact.html" style="color: #cccccc; text-decoration: none;">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 style="font-size: 1.2rem; margin-bottom: 15px;">Legal</h4>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #cccccc; text-decoration: none;">Privacy Policy</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #cccccc; text-decoration: none;">Terms of Service</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #cccccc; text-decoration: none;">Legal Notice</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 style="font-size: 1.2rem; margin-bottom: 15px;">Contact</h4>
+                <p style="color: #cccccc; line-height: 1.6;">
+                    Email: contact@novail-ia.com<br>
+                    Phone: +1 (555) 123-4567
+                </p>
+            </div>
+        </div>
+        
+        <div style="max-width: 1200px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); text-align: center; color: #999999;">
+            <p>&copy; 2025 NOVAIL IA - All rights reserved</p>
+        </div>
+    </footer>
+</body>
+</html>

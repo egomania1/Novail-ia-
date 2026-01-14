@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVAIL IA - Real-Time Data Protection</title>
+    <style>
+        body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Animation d'apparition des cartes */
+        @keyframes cardFadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .showcase-column {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: cardFadeInUp 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+        
+        .showcase-column[data-column="0"] {
+            animation-delay: 0.2s;
+        }
+        
+        .showcase-column[data-column="1"] {
+            animation-delay: 0.4s;
+        }
+        
+        .showcase-column[data-column="2"] {
+            animation-delay: 0.6s;
+        }
+        
+        /* Navbar transparente ronde minimaliste style Apple */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 14px 50px;
+            max-width: 800px;
+            min-width: 600px;
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 50px; /* Complètement rond */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            font-weight: 500;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 25px;
+        }
+        
+        .nav-links li {
+            margin: 0;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 400;
+            transition: color 0.2s ease;
+            letter-spacing: -0.3px;
+        }
+        
+        .nav-links a:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+        
+        .contenu {
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        p {
+            font-size: 1.2em;
+            max-width: 600px;
+            line-height: 1.6;
+            margin: 0 auto 15px;
+        }
+        
+        /* Style pour les boutons Call to Action */
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 15px 10px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            color: white;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cta-button.primary {
+            background: rgba(16, 52, 166, 0.7); /* Bleu égyptien avec transparence */
+            border-color: rgba(16, 52, 166, 0.5);
+        }
+        
+        .cta-button.primary:hover {
+            background: rgba(16, 52, 166, 0.9);
+        }
+        
+        /* Style pour le bouton de changement de langue */
+        .language-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .language-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Conteneur pour l'effet d'iridescence */
+        #iridescence-root {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        /* Animation de la clé de chiffrement */
+        @keyframes rotateKey {
+            0% {
+                transform: rotateY(0deg) rotateX(10deg);
+            }
+            100% {
+                transform: rotateY(360deg) rotateX(10deg);
+            }
+        }
+        
+        /* Animation d'apparition */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="MetallicPaint.css">
+</head>
+<body>
+    <!-- Barre de navigation transparente -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="page-noire.html" data-lang="home">Home</a></li>
+                <li><a href="solution.html" data-lang="solution">Solution</a></li>
+                <li><a href="features.html" data-lang="features">Features</a></li>
+                <li><a href="offers-vision.html" data-lang="offers-vision">Offers & Vision</a></li>
+                <li><a href="cyber-city.html" data-lang="cyber-city">Cyber City</a></li>
+                <li><a href="contact.html" data-lang="contact">Contact</a></li>
+            </ul>
+            <button id="language-toggle" class="language-button">FR</button>
+        </div>
+    </nav>
+    
+    <!-- Conteneur pour l'effet d'iridescence -->
+    <div id="iridescence-root"></div>
+    
+    <!-- Conteneur pour MetallicPaint -->
+    <div id="metallic-paint-container" style="position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding-top: 80px;"></div>
+    
+    <div class="contenu" style="z-index: 10; position: relative;">
+        <!-- Section de transition avec animation d'apparition stylée -->
+        <div id="transition-section" style="
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0;
+            padding: 60px 20px;
+        ">
+            <h2 id="security-title" style="
+                color: white;
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+                text-align: center;
+                opacity: 0;
+                transform: translateY(40px);
+                transition: all 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+                font-weight: 700;
+                letter-spacing: -0.5px;
+            ">Protect Your Sensitive Data in Real Time</h2>
+            
+            <div style="
+                width: 60px;
+                height: 4px;
+                background: linear-gradient(90deg, #00a8ff, #0077ff);
+                margin: 0 auto 2rem;
+                border-radius: 2px;
+                opacity: 0;
+                transform: scaleX(0);
+                transform-origin: center;
+                transition: all 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s;
+            "></div>
+            
+            <p id="security-description" style="
+                color: rgba(255, 255, 255, 0.85);
+                font-size: 1.3rem;
+                max-width: 700px;
+                text-align: center;
+                margin-top: 1rem;
+                opacity: 0;
+                transform: translateY(40px);
+                transition: all 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s;
+                line-height: 1.7;
+                font-weight: 300;
+            ">NOVAIL IA is designed to protect sensitive information in real time, making cybersecurity simple, fast, and accessible for businesses of all sizes.</p>
+            
+            <h3 id="promise-title" style="
+                color: white;
+                font-size: 1.8rem;
+                margin: 3rem 0 1.5rem 0;
+                text-align: center;
+                opacity: 0;
+                transform: translateY(40px);
+                transition: all 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s;
+                font-weight: 600;
+            ">Why Choose NOVAIL IA?</h3>
+            
+            <p id="promise-description" style="
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 1.1rem;
+                max-width: 700px;
+                text-align: center;
+                margin-top: 1rem;
+                opacity: 0;
+                transform: translateY(40px);
+                transition: all 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.7s;
+                line-height: 1.7;
+                font-weight: 300;
+            ">We understand the challenges businesses face today. Small businesses are targeted in 43% of cyberattacks, and data breaches cost businesses an average of $4.45 million. NOVAIL IA solves this problem by continuously monitoring data in real time and automatically detecting and protecting sensitive information.</p>
+        </div>
+    </div>
+
+
+
+    <script type="module">
+        // Simulation de l'importation du module Iridescence
+        // Puisque nous ne pouvons pas exécuter npm install, nous allons recréer l'effet ici
+        
+        // Importation simulée de OGL
+        import { Renderer, Program, Mesh, Color, Geometry } from 'https://cdn.skypack.dev/ogl@0.0.102';
+        
+        // Vertex shader
+        const vertexShader = `
+            attribute vec2 uv;
+            attribute vec2 position;
+            
+            varying vec2 vUv;
+            
+            void main() {
+                vUv = uv;
+                gl_Position = vec4(position, 0, 1);
+            }
+        `;
+        
+        // Fragment shader
+        const fragmentShader = `
+            precision highp float;
+            
+            uniform float uTime;
+            uniform vec3 uColor;
+            uniform vec3 uResolution;
+            uniform vec2 uMouse;
+            uniform float uAmplitude;
+            uniform float uSpeed;
+            
+            varying vec2 vUv;
+            
+            void main() {
+                float mr = min(uResolution.x, uResolution.y);
+                vec2 uv = (vUv.xy * 2.0 - 1.0) * uResolution.xy / mr;
+                
+                uv += (uMouse - vec2(0.5)) * uAmplitude;
+                
+                float d = -uTime * 0.5 * uSpeed;
+                float a = 0.0;
+                for (float i = 0.0; i < 8.0; ++i) {
+                    a += cos(i - d - a * uv.x);
+                    d += sin(uv.y * i + a);
+                }
+                d += uTime * 0.5 * uSpeed;
+                
+                // Définition des deux couleurs - gris plus clair pour être plus voyant
+                vec3 blueEgyptien = vec3(0.06, 0.2, 0.65); // Bleu égyptien (16, 52, 166)
+                vec3 grisAnthracite = vec3(0.35, 0.35, 0.35); // Gris anthracite plus clair et voyant
+                
+                // Créer un pattern simple basé sur les calculs existants pour mixer les couleurs
+                float pattern = cos(uv.x * 2.0 + d) * cos(uv.y * 2.0 + a) * 0.5 + 0.5;
+                
+                // Mixer uniquement entre bleu et gris, sans autres couleurs
+                vec3 col = mix(blueEgyptien, grisAnthracite, pattern);
+                
+                // Appliquer l'intensité basée sur le pattern pour créer de la profondeur
+                float intensity = cos(uv.x * 3.0 + d) * cos(uv.y * 3.0 + a) * 0.3 + 0.7;
+                col *= intensity;
+                
+                gl_FragColor = vec4(col, 1.0);
+            }
+        `;
+        
+        // Initialisation de l'effet
+        function initIridescence() {
+            const container = document.getElementById('iridescence-root');
+            if (!container) return;
+            
+            // Initialisation du renderer
+            const renderer = new Renderer({ dpr: Math.min(2, window.devicePixelRatio) });
+            const gl = renderer.gl;
+            gl.clearColor(0, 0, 0, 1); // Fond noir
+            
+            // Redimensionnement
+            function resize() {
+                renderer.setSize(container.offsetWidth, container.offsetHeight);
+            }
+            window.addEventListener('resize', resize, false);
+            resize();
+            
+            // Géométrie (quad fullscreen)
+            const geometry = new Geometry(gl);
+            
+            const positions = new Float32Array([
+                -1, -1,  // bas gauche
+                 1, -1,  // bas droit
+                 1,  1,  // haut droit
+                -1,  1   // haut gauche
+            ]);
+            
+            const uvs = new Float32Array([
+                0, 0,  // bas gauche
+                1, 0,  // bas droit
+                1, 1,  // haut droit
+                0, 1   // haut gauche
+            ]);
+            
+            const index = new Uint16Array([
+                0, 1, 2,  // premier triangle
+                0, 2, 3   // deuxième triangle
+            ]);
+            
+            geometry.addAttribute('position', { size: 2, data: positions });
+            geometry.addAttribute('uv', { size: 2, data: uvs });
+            geometry.setIndex({ data: index });
+            
+            // Programme shader - ici sont les couleurs de l'effet
+            const program = new Program(gl, {
+                vertex: vertexShader,
+                fragment: fragmentShader,
+                uniforms: {
+                    uTime: { value: 0 },
+                    uColor: { value: new Color(0.19, 0.44, 0.48) }, // Gris anthracite (48, 48, 48) converti en valeurs entre 0 et 1
+                    uResolution: {
+                        value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
+                    },
+                    uMouse: { value: new Float32Array([0.5, 0.5]) },
+                    uAmplitude: { value: 0.1 },
+                    uSpeed: { value: 0.15 } // Vitesse très lente
+                }
+            });
+            
+            // Maillage
+            const mesh = new Mesh(gl, { geometry, program });
+            
+            // Variables pour l'animation
+            let startTime = Date.now();
+            
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Mise à jour du temps
+                const elapsed = (Date.now() - startTime) * 0.001;
+                program.uniforms.uTime.value = elapsed;
+                
+                // Mise à jour de la résolution
+                program.uniforms.uResolution.value = new Color(
+                    gl.canvas.width,
+                    gl.canvas.height,
+                    gl.canvas.width / gl.canvas.height
+                );
+                
+                // Rendu
+                renderer.render({ scene: mesh });
+            }
+            
+            // Démarrage de l'animation
+            animate();
+            
+            // Ajout du canvas au conteneur
+            container.appendChild(gl.canvas);
+        }
+        
+        // Appeler l'initialisation après le chargement du DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initIridescence);
+        } else {
+            initIridescence();
+        }
+    </script>
+    
+    <!-- Script pour l'effet d'iridescence dans la section CardShowcase -->
+    <script>
+        // Initialisation de l'effet d'iridescence pour la section CardShowcase
+        function initIridescenceCardShowcase() {
+            const container = document.getElementById('iridescence-cardshowcase');
+            if (!container) return;
+            
+            // Initialisation du renderer
+            const renderer = new Renderer({ dpr: Math.min(2, window.devicePixelRatio) });
+            const gl = renderer.gl;
+            gl.clearColor(0, 0, 0, 1); // Fond noir
+            
+            // Redimensionnement
+            function resize() {
+                renderer.setSize(container.offsetWidth, container.offsetHeight);
+            }
+            window.addEventListener('resize', resize, false);
+            resize();
+            
+            // Géométrie (quad fullscreen)
+            const geometry = new Geometry(gl);
+            
+            const positions = new Float32Array([
+                -1, -1,  // bas gauche
+                 1, -1,  // bas droit
+                 1,  1,  // haut droit
+                -1,  1   // haut gauche
+            ]);
+            
+            const uvs = new Float32Array([
+                0, 0,  // bas gauche
+                1, 0,  // bas droit
+                1, 1,  // haut droit
+                0, 1   // haut gauche
+            ]);
+            
+            const index = new Uint16Array([
+                0, 1, 2,  // premier triangle
+                0, 2, 3   // deuxième triangle
+            ]);
+            
+            geometry.addAttribute('position', { size: 2, data: positions });
+            geometry.addAttribute('uv', { size: 2, data: uvs });
+            geometry.setIndex({ data: index });
+            
+            // Programme shader - ici sont les couleurs de l'effet
+            const program = new Program(gl, {
+                vertex: vertexShader,
+                fragment: fragmentShader,
+                uniforms: {
+                    uTime: { value: 0 },
+                    uColor: { value: new Color(0.19, 0.44, 0.48) }, // Gris anthracite (48, 48, 48) converti en valeurs entre 0 et 1
+                    uResolution: {
+                        value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
+                    },
+                    uMouse: { value: new Float32Array([0.5, 0.5]) },
+                    uAmplitude: { value: 0.1 },
+                    uSpeed: { value: 0.15 } // Vitesse très lente
+                }
+            });
+            
+            // Maillage
+            const mesh = new Mesh(gl, { geometry, program });
+            
+            // Variables pour l'animation
+            let startTime = Date.now();
+            
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Mise à jour du temps
+                const elapsed = (Date.now() - startTime) * 0.001;
+                program.uniforms.uTime.value = elapsed;
+                
+                // Mise à jour de la résolution
+                program.uniforms.uResolution.value = new Color(
+                    gl.canvas.width,
+                    gl.canvas.height,
+                    gl.canvas.width / gl.canvas.height
+                );
+                
+                // Rendu
+                renderer.render({ scene: mesh });
+            }
+            
+            // Démarrage de l'animation
+            animate();
+            
+            // Ajout du canvas au conteneur
+            container.appendChild(gl.canvas);
+        }
+        
+        // Appeler l'initialisation après le chargement du DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initIridescenceCardShowcase);
+        } else {
+            initIridescenceCardShowcase();
+        }
+    </script>
+
+    <!-- Script pour l'effet glassmorphism style "CREATIVE GIANTS" -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('metallic-paint-container');
+            if (!container) return;
+
+            // Conteneur pour le texte simple
+            const textContainer = document.createElement('div');
+            textContainer.style.cssText = `
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                min-height: calc(100vh - 200px);
+                padding: 40px 20px;
+            `;
+
+            // Texte principal "NOVAIL" simple
+            const mainText = document.createElement('div');
+            mainText.textContent = 'NOVAIL';
+            mainText.style.cssText = `
+                font-size: clamp(4rem, 15vw, 12rem);
+                font-weight: 600;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: white;
+                margin-bottom: 1rem;
+                line-height: 1.1;
+            `;
+
+            // Sous-titre
+            const subtitle = document.createElement('div');
+            subtitle.innerHTML = `
+                <div style="
+                    font-size: clamp(1.2rem, 2.5vw, 2rem);
+                    font-weight: 400;
+                    color: rgba(255, 255, 255, 0.8);
+                    text-align: center;
+                    max-width: 800px;
+                    line-height: 1.6;
+                    margin-top: 2rem;
+                ">
+                    <div id="subtitle1" style="font-weight: 400; margin-bottom: 0.5rem;">Powerful cybersecurity solutions designed to protect your business without complexity</div>
+                    <div id="subtitle2" style="font-size: 0.85em; opacity: 0.8;">Advanced security features for complete protection</div>
+                </div>
+            `;
+
+            textContainer.appendChild(mainText);
+            textContainer.appendChild(subtitle);
+            
+            // Ajout des boutons CTA directement après le texte
+            const buttonContainer = document.createElement('div');
+            buttonContainer.style.cssText = `
+                display: flex;
+                justify-content: center;
+                margin: 15px 0;
+                gap: 20px;
+            `;
+            
+            const discoverButton = document.createElement('a');
+            discoverButton.href = 'features.html';
+            discoverButton.className = 'cta-button primary';
+            discoverButton.textContent = 'Discover the solution';
+            
+            const howButton = document.createElement('a');
+            howButton.href = 'solution.html';
+            howButton.className = 'cta-button';
+            howButton.textContent = 'How it works';
+            
+            buttonContainer.appendChild(discoverButton);
+            buttonContainer.appendChild(howButton);
+            textContainer.appendChild(buttonContainer);
+            
+            container.appendChild(textContainer);
+        });
+        
+        // Script pour l'animation de transition lors du défilement
+        document.addEventListener('DOMContentLoaded', function() {
+            const transitionSection = document.getElementById('transition-section');
+            const keyElement = document.getElementById('key-element');
+            const title = document.getElementById('security-title');
+            const description = document.getElementById('security-description');
+            const promiseTitle = document.getElementById('promise-title');
+            const promiseDescription = document.getElementById('promise-description');
+            const keyContainer = document.getElementById('key-animation-container');
+            
+            // Observer pour détecter quand la section entre dans le viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Démarrer les animations
+                        setTimeout(() => {
+                            title.style.opacity = '1';
+                            title.style.transform = 'translateY(0)';
+                        }, 100);
+                        
+                        setTimeout(() => {
+                            description.style.opacity = '1';
+                            description.style.transform = 'translateY(0)';
+                        }, 300);
+                        
+                        setTimeout(() => {
+                            promiseTitle.style.opacity = '1';
+                            promiseTitle.style.transform = 'translateY(0)';
+                        }, 500);
+                        
+                        setTimeout(() => {
+                            promiseDescription.style.opacity = '1';
+                            promiseDescription.style.transform = 'translateY(0)';
+                        }, 700);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            if (transitionSection) {
+                observer.observe(transitionSection);
+            }
+        });
+        
+        // Script pour l'animation des cartes
+        // CardShowcase style Framer - Layout 3 colonnes
+        function initCardShowcase() {
+            // Vérifier si la section existe
+            const section = document.getElementById('card-showcase-section');
+            if (!section) {
+                console.log('Section card-showcase-section non trouvée');
+                return;
+            }
+            
+            const columns = document.querySelectorAll('.showcase-column');
+            
+            if (columns.length === 0) {
+                console.log('Aucune colonne trouvée');
+                return;
+            }
+            
+            // S'assurer que la section est visible
+            section.style.display = 'block';
+            
+            let activeColumn = 0;
+            
+            // Fonction pour mettre à jour l'indicateur actif
+            function updateActiveColumn(index) {
+                columns.forEach((col, i) => {
+                    const indicator = col.querySelector('.active-indicator');
+                    if (i === index) {
+                        indicator.style.opacity = '1';
+                    } else {
+                        indicator.style.opacity = '0';
+                    }
+                });
+            }
+            
+            // Ajouter les événements de clic sur les colonnes
+            columns.forEach((column, index) => {
+                column.style.cursor = 'pointer';
+                
+                column.addEventListener('click', function() {
+                    activeColumn = index;
+                    updateActiveColumn(activeColumn);
+                });
+                
+                // Effet hover
+                column.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(0, 0, 0, 0.02)';
+                });
+                
+                column.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                });
+            });
+            
+            // Observer pour l'animation d'entrée
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Déclencher l'animation d'apparition des cartes
+                        columns.forEach((column, index) => {
+                            setTimeout(() => {
+                                column.style.animation = 'cardFadeInUp 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards';
+                            }, index * 200); // Délai progressif pour chaque carte
+                        });
+                        
+                        setTimeout(() => {
+                            updateActiveColumn(activeColumn);
+                        }, 300);
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            observer.observe(section);
+            
+            // Initialiser avec la première colonne active
+            updateActiveColumn(activeColumn);
+            
+            console.log('CardShowcase initialisé avec', columns.length, 'colonnes');
+        }
+        
+        // Appeler la fonction d'initialisation
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCardShowcase);
+        } else {
+            initCardShowcase();
+        }
+        
+        window.addEventListener('load', function() {
+            setTimeout(initCardShowcase, 100);
+        });
+        
+        // Appel immédiat pour s'assurer que la fonction s'exécute
+        setTimeout(initCardShowcase, 500);
+        
+        // Script pour le changement de langue
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageToggle = document.getElementById('language-toggle');
+            const navLinks = document.querySelectorAll('.nav-links a[data-lang]');
+            let currentLanguage = 'en'; // Langue par défaut
+            
+            // Textes traduits
+            const translations = {
+                en: {
+                    home: 'Home',
+                    about: 'About',
+                    features: 'Features',
+                    pricing: 'Pricing',
+                    contact: 'Contact',
+                    discover: 'Discover the solution',
+                    how: 'How it works',
+                    mainTitle: 'NOVAIL IA',
+                    subTitle1: 'Powerful cybersecurity solutions designed to protect your business without complexity',
+                    subTitle2: 'Advanced security features for complete protection',
+                    advancedSecurity: 'Real-Time Protection',
+                    enhancedProtection: 'Automatically protects sensitive data in real time and blocks suspicious behavior or unauthorized access.',
+                    ourPromise: 'Why Choose NOVAIL IA?',
+                    promiseText: 'We understand the challenges businesses face today. Small businesses are targeted in 43% of cyberattacks, and data breaches cost businesses an average of $4.45 million. NOVAIL IA solves this problem by continuously monitoring data in real time and automatically detecting and protecting sensitive information.'
+                },
+                fr: {
+                    home: 'Accueil',
+                    about: 'À propos',
+                    features: 'Fonctionnalités',
+                    pricing: 'Tarification',
+                    contact: 'Contact',
+                    discover: 'Découvrir la solution',
+                    how: 'Comment ça fonctionne',
+                    mainTitle: 'NOVAIL',
+                    subTitle1: 'Des solutions de cybersécurité puissantes conçues pour protéger votre entreprise sans complexité',
+                    subTitle2: 'Fonctionnalités de sécurité avancées pour une protection complète',
+                    advancedSecurity: 'Protection en Temps Réel',
+                    enhancedProtection: 'Protège automatiquement les données sensibles en temps réel et bloque les comportements suspects ou les accès non autorisés.',
+                    ourPromise: 'Pourquoi Choisir NOVAIL IA?',
+                    promiseText: 'Nous comprenons les défis auxquels les entreprises sont confrontées aujourd\'hui. Les petites entreprises sont ciblées dans 43 % des cyberattaques, et les violations de données coûtent aux entreprises en moyenne 4,45 millions de dollars. NOVAIL IA résout ce problème en surveillant continuellement les données en temps réel et en détectant et protégeant automatiquement les informations sensibles.'
+                }
+            };
+            
+            // Changement de langue
+            languageToggle.addEventListener('click', function() {
+                currentLanguage = currentLanguage === 'en' ? 'fr' : 'en';
+                languageToggle.textContent = currentLanguage.toUpperCase();
+                
+                // Mettre à jour les textes de la navbar
+                navLinks.forEach(link => {
+                    const key = link.getAttribute('data-lang');
+                    if (translations[currentLanguage][key]) {
+                        link.textContent = translations[currentLanguage][key];
+                    }
+                });
+                
+                // Mettre à jour les textes des boutons CTA
+                const ctaButtons = document.querySelectorAll('.cta-button');
+                if (ctaButtons.length >= 2) {
+                    ctaButtons[0].textContent = translations[currentLanguage].discover;
+                    ctaButtons[1].textContent = translations[currentLanguage].how;
+                }
+                
+                // Mettre à jour le texte principal de la page
+                const mainText = document.querySelector('#metallic-paint-container div div:first-child');
+                const subtitle1 = document.getElementById('subtitle1');
+                const subtitle2 = document.getElementById('subtitle2');
+                
+                if (mainText) {
+                    mainText.textContent = translations[currentLanguage].mainTitle;
+                }
+                
+                if (subtitle1) {
+                    subtitle1.textContent = translations[currentLanguage].subTitle1;
+                }
+                
+                if (subtitle2) {
+                    subtitle2.textContent = translations[currentLanguage].subTitle2;
+                }
+                
+                // Mettre à jour le texte de la section de transition
+                const securityTitle = document.getElementById('security-title');
+                const securityDescription = document.getElementById('security-description');
+                const promiseTitle = document.getElementById('promise-title');
+                const promiseDescription = document.getElementById('promise-description');
+                
+                if (securityTitle) {
+                    securityTitle.textContent = translations[currentLanguage].advancedSecurity;
+                }
+                
+                if (securityDescription) {
+                    securityDescription.textContent = translations[currentLanguage].enhancedProtection;
+                }
+                
+                if (promiseTitle) {
+                    promiseTitle.textContent = translations[currentLanguage].ourPromise;
+                }
+                
+                if (promiseDescription) {
+                    promiseDescription.textContent = translations[currentLanguage].promiseText;
+                }
+                
+
+            });
+        });
+    </script>
+    
+    <!-- Footer -->
+    <footer style="background: #0a0a0a; color: #ffffff; padding: 40px 20px; margin-top: 50px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            <div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 20px;">NOVAIL IA</h3>
+                <p style="color: #cccccc; line-height: 1.6;">Simple and effective cybersecurity for businesses. Protect your sensitive data without complexity.</p>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(16, 52, 166, 0.2); border-radius: 8px; border: 1px solid rgba(16, 52, 166, 0.5);">
+                    <h4 style="margin-top: 0; color: #00a8ff;">Partner with Us</h4>
+                    <p style="color: #cccccc; margin-bottom: 15px; font-size: 0.9rem;">We're looking for partners, investors, and pilot companies to join us in making cybersecurity simple and accessible.</p>
+                    <a href="contact.html" style="display: inline-block; background: #00a8ff; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none; font-size: 0.9rem; font-weight: 500;">Join Our Mission</a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 style="font-size: 1.2rem; margin-bottom: 15px;">Quick Links</h4>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 10px;"><a href="page-noire.html" style="color: #cccccc; text-decoration: none;">Home</a></li>
+                    <li style="margin-bottom: 10px;"><a href="solution.html" style="color: #cccccc; text-decoration: none;">Solution</a></li>
+                    <li style="margin-bottom: 10px;"><a href="features.html" style="color: #cccccc; text-decoration: none;">Features</a></li>
+                    <li style="margin-bottom: 10px;"><a href="offers-vision.html" style="color: #cccccc; text-decoration: none;">Offers & Vision</a></li>
+                    <li style="margin-bottom: 10px;"><a href="cyber-city.html" style="color: #cccccc; text-decoration: none;">Cyber City</a></li>
+                    <li style="margin-bottom: 10px;"><a href="contact.html" style="color: #cccccc; text-decoration: none;">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 style="font-size: 1.2rem; margin-bottom: 15px;">Legal</h4>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #cccccc; text-decoration: none;">Privacy Policy</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #cccccc; text-decoration: none;">Terms of Service</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #cccccc; text-decoration: none;">Legal Notice</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 style="font-size: 1.2rem; margin-bottom: 15px;">Contact</h4>
+                <p style="color: #cccccc; line-height: 1.6;">
+                    Email: contact@novail-ia.com<br>
+                    Phone: +1 (555) 123-4567
+                </p>
+            </div>
+        </div>
+        
+        <div style="max-width: 1200px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); text-align: center; color: #999999;">
+            <p>&copy; 2025 NOVAIL IA - All rights reserved</p>
+        </div>
+    </footer>
+</body>
+</html>

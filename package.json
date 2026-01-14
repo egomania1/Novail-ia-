@@ -1,0 +1,26 @@
+{
+  "name": "novail-infinite-menu",
+  "version": "1.0.0",
+  "description": "Infinite menu component for NOVAIL IA website",
+  "main": "InfiniteMenu.js",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "npx webpack"
+  },
+  "dependencies": {
+    "gl-matrix": "^3.4.3"
+  },
+  "devDependencies": {
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.0"
+  },
+  "keywords": [
+    "webgl",
+    "3d",
+    "menu",
+    "infinite",
+    "novail"
+  ],
+  "author": "NOVAIL IA",
+  "license": "MIT"
+}
