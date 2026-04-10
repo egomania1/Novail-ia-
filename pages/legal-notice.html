@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Notice - Novail</title>
+    <style>
+        body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Animation d'apparition des cartes */
+        @keyframes cardFadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .showcase-column {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: cardFadeInUp 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+        
+        .showcase-column[data-column="0"] {
+            animation-delay: 0.2s;
+        }
+        
+        .showcase-column[data-column="1"] {
+            animation-delay: 0.4s;
+        }
+        
+        .showcase-column[data-column="2"] {
+            animation-delay: 0.6s;
+        }
+        
+        /* Navbar transparente ronde minimaliste style Apple */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 14px 50px;
+            max-width: 800px;
+            min-width: 600px;
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 50px; /* Complètement rond */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            font-weight: 500;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 25px;
+        }
+        
+        .nav-links li {
+            margin: 0;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 400;
+            transition: color 0.2s ease;
+            letter-spacing: -0.3px;
+        }
+        
+        .nav-links a:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+        
+        .contenu {
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        p {
+            font-size: 1.2em;
+            max-width: 600px;
+            line-height: 1.6;
+            margin: 0 auto 15px;
+        }
+        
+        /* Style pour les boutons Call to Action */
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 15px 10px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            color: white;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cta-button.primary {
+            background: rgba(16, 52, 166, 0.7); /* Bleu égyptien avec transparence */
+            border-color: rgba(16, 52, 166, 0.5);
+        }
+        
+        .cta-button.primary:hover {
+            background: rgba(16, 52, 166, 0.9);
+        }
+        
+        /* Style pour le bouton de changement de langue */
+        .language-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .language-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Conteneur pour l'effet d'iridescence */
+        #iridescence-root {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        /* Animation de la clé de chiffrement */
+        @keyframes rotateKey {
+            0% {
+                transform: rotateY(0deg) rotateX(10deg);
+            }
+            100% {
+                transform: rotateY(360deg) rotateX(10deg);
+            }
+        }
+        
+        /* Animation d'apparition */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Styles pour le contenu principal */
+        main {
+            padding-top: 100px;
+            color: white;
+            min-height: calc(100vh - 200px);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .legal-hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .legal-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .legal-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .legal-content {
+            padding: 60px 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .legal-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .legal-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: white;
+            border-bottom: 1px solid rgba(0, 168, 255, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .legal-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .legal-section strong {
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 50px 40px 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #00a8ff;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #00a8ff;
+        }
+        
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 10px 20px;
+                min-width: auto;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .legal-content {
+                padding: 30px 20px;
+            }
+            
+            .legal-section {
+                padding: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="MetallicPaint.css">
+</head>
+<body>
+    <!-- Header avec navigation -->
+    <!-- Barre de navigation transparente -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>Nov<span class="highlight">AI</span>l</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="page-noire.html">Home</a></li>
+                <li><a href="solution.html">Solution</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="language-switch">
+                <button onclick="switchLanguage('fr')">FR</button>
+                <button onclick="switchLanguage('en')" class="active">EN</button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Conteneur pour l'effet d'iridescence -->
+    <div id="iridescence-root"></div>
+
+    <!-- Section principale -->
+    <main>
+        <section class="legal-hero">
+            <h1>Legal Notice</h1>
+            <p>Important legal information about Novail and its services</p>
+        </section>
+
+        <section class="legal-content">
+            <div class="legal-section">
+                <h2>Editorial Information</h2>
+                <p><strong>Company Name:</strong> Novail SAS</p>
+                <p><strong>Headquarters:</strong> 123 Tech Street, 75001 Paris, France</p>
+                <p><strong>Registration Number:</strong> RCS Paris 123 456 789</p>
+                <p><strong>VAT Number:</strong> FR 12 123456789</p>
+                <p><strong>Legal Representative:</strong> John Smith, CEO</p>
+            </div>
+
+            <div class="legal-section">
+                <h2>Contact Information</h2>
+                <p><strong>Email:</strong> legal@novail.com</p>
+                <p><strong>Phone:</strong> +33 1 23 45 67 89</p>
+                <p><strong>Fax:</strong> +33 1 23 45 67 90</p>
+            </div>
+
+            <div class="legal-section">
+                <h2>Hosting Provider</h2>
+                <p><strong>Company:</strong> Amazon Web Services LLC</p>
+                <p><strong>Address:</strong> 410 Terry Avenue North, Seattle, WA 98109, USA</p>
+            </div>
+
+            <div class="legal-section">
+                <h2>Intellectual Property</h2>
+                <p>All content, logos, trademarks, and other intellectual property displayed on this website are the exclusive property of Novail SAS or its licensors. Unauthorized use, reproduction, or distribution of any material from this site is strictly prohibited.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2>Liability Limitation</h2>
+                <p>While we strive to ensure the accuracy and completeness of information on our website, Novail SAS shall not be held liable for any direct, indirect, incidental, or consequential damages arising from the use of this site or its content.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2>Applicable Law</h2>
+                <p>These legal notices are governed by French law. Any disputes arising from the use of this website fall under the exclusive jurisdiction of the courts in Paris, France.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2>GDPR Compliance</h2>
+                <p>Novail SAS is committed to protecting your personal data in accordance with the General Data Protection Regulation (GDPR). For detailed information about how we collect, use, and protect your personal data, please refer to our Privacy Policy.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer uniforme -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Nov<span class="highlight">AI</span>l</h3>
+                <p>Innovative email management solutions powered by artificial intelligence.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="page-noire.html">Home</a></li>
+                    <li><a href="solution.html">Solution</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="legal-notice.html">Legal Notice</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: contact@novail.com</p>
+                <p>Phone: +33 1 23 45 67 89</p>
+                <p>Address: 123 Tech Street, Paris, France</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Novail. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Simulation de l'importation du module Iridescence
+        // Puisque nous ne pouvons pas exécuter npm install, nous allons recréer l'effet ici
+        
+        // Importation simulée de OGL
+        import { Renderer, Program, Mesh, Color, Geometry } from 'https://cdn.skypack.dev/ogl@0.0.102';
+        
+        // Vertex shader
+        const vertexShader = `
+            attribute vec2 uv;
+            attribute vec2 position;
+            
+            varying vec2 vUv;
+            
+            void main() {
+                vUv = uv;
+                gl_Position = vec4(position, 0, 1);
+            }
+        `;
+        
+        // Fragment shader
+        const fragmentShader = `
+            precision highp float;
+            
+            uniform float uTime;
+            uniform vec3 uColor;
+            uniform vec3 uResolution;
+            uniform vec2 uMouse;
+            uniform float uAmplitude;
+            uniform float uSpeed;
+            
+            varying vec2 vUv;
+            
+            void main() {
+                float mr = min(uResolution.x, uResolution.y);
+                vec2 uv = (vUv.xy * 2.0 - 1.0) * uResolution.xy / mr;
+                
+                uv += (uMouse - vec2(0.5)) * uAmplitude;
+                
+                float d = -uTime * 0.5 * uSpeed;
+                float a = 0.0;
+                for (float i = 0.0; i < 8.0; ++i) {
+                    a += cos(i - d - a * uv.x);
+                    d += sin(uv.y * i + a);
+                }
+                d += uTime * 0.5 * uSpeed;
+                
+                // Définition des deux couleurs - gris plus clair pour être plus voyant
+                vec3 blueEgyptien = vec3(0.06, 0.2, 0.65); // Bleu égyptien (16, 52, 166)
+                vec3 grisAnthracite = vec3(0.35, 0.35, 0.35); // Gris anthracite plus clair et voyant
+                
+                // Créer un pattern simple basé sur les calculs existants pour mixer les couleurs
+                float pattern = cos(uv.x * 2.0 + d) * cos(uv.y * 2.0 + a) * 0.5 + 0.5;
+                
+                // Mixer uniquement entre bleu et gris, sans autres couleurs
+                vec3 col = mix(blueEgyptien, grisAnthracite, pattern);
+                
+                // Appliquer l'intensité basée sur le pattern pour créer de la profondeur
+                float intensity = cos(uv.x * 3.0 + d) * cos(uv.y * 3.0 + a) * 0.3 + 0.7;
+                col *= intensity;
+                
+                gl_FragColor = vec4(col, 1.0);
+            }
+        `;
+        
+        // Initialisation de l'effet
+        function initIridescence() {
+            const container = document.getElementById('iridescence-root');
+            if (!container) return;
+            
+            // Initialisation du renderer
+            const renderer = new Renderer({ dpr: Math.min(2, window.devicePixelRatio) });
+            const gl = renderer.gl;
+            gl.clearColor(0, 0, 0, 1); // Fond noir
+            
+            // Redimensionnement
+            function resize() {
+                renderer.setSize(container.offsetWidth, container.offsetHeight);
+            }
+            window.addEventListener('resize', resize, false);
+            resize();
+            
+            // Géométrie (quad fullscreen)
+            const geometry = new Geometry(gl);
+            
+            const positions = new Float32Array([
+                -1, -1,  // bas gauche
+                 1, -1,  // bas droit
+                 1,  1,  // haut droit
+                -1,  1   // haut gauche
+            ]);
+            
+            const uvs = new Float32Array([
+                0, 0,  // bas gauche
+                1, 0,  // bas droit
+                1, 1,  // haut droit
+                0, 1   // haut gauche
+            ]);
+            
+            const index = new Uint16Array([
+                0, 1, 2,  // premier triangle
+                0, 2, 3   // deuxième triangle
+            ]);
+            
+            geometry.addAttribute('position', { size: 2, data: positions });
+            geometry.addAttribute('uv', { size: 2, data: uvs });
+            geometry.setIndex({ data: index });
+            
+            // Programme shader - ici sont les couleurs de l'effet
+            const program = new Program(gl, {
+                vertex: vertexShader,
+                fragment: fragmentShader,
+                uniforms: {
+                    uTime: { value: 0 },
+                    uColor: { value: new Color(0.19, 0.44, 0.48) }, // Gris anthracite (48, 48, 48) converti en valeurs entre 0 et 1
+                    uResolution: {
+                        value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
+                    },
+                    uMouse: { value: new Float32Array([0.5, 0.5]) },
+                    uAmplitude: { value: 0.1 },
+                    uSpeed: { value: 0.15 } // Vitesse très lente
+                }
+            });
+            
+            // Maillage
+            const mesh = new Mesh(gl, { geometry, program });
+            
+            // Variables pour l'animation
+            let startTime = Date.now();
+            
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Mise à jour du temps
+                const elapsed = (Date.now() - startTime) * 0.001;
+                program.uniforms.uTime.value = elapsed;
+                
+                // Mise à jour de la résolution
+                program.uniforms.uResolution.value = new Color(
+                    gl.canvas.width,
+                    gl.canvas.height,
+                    gl.canvas.width / gl.canvas.height
+                );
+                
+                // Rendu
+                renderer.render({ scene: mesh });
+            }
+            
+            // Démarrage de l'animation
+            animate();
+            
+            // Ajout du canvas au conteneur
+            container.appendChild(gl.canvas);
+        }
+        
+        // Appeler l'initialisation après le chargement du DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initIridescence);
+        } else {
+            initIridescence();
+        }
+    </script>
+</body>
+</html>

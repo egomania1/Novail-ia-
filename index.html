@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!--
+/////////////////////////////////////////////////////////////
+FICHIER: index.html
+AUTEUR: Kelian
+PROJET: NOVAIL IA - Cybersécurité automatisée
+DATE: 2026
+DESCRIPTION: Page d'accueil principale
+/////////////////////////////////////////////////////////////
+-->
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NOVAIL IA – Une cybersécurité simple, automatisée et accessible pour les PME.">
+    <title>NOVAIL IA – Cybersécurité Automatisée</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Navbar minimaliste style Apple */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            padding: 14px 50px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+        }
+
+        .logo {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            font-weight: 500;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: #fff; }
+
+        .nav-cta {
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85em;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover { background: rgba(255, 255, 255, 0.2); }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 28px;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            color: rgba(255, 255, 255, 0.92);
+            max-width: 800px;
+            animation: fadeInUp 0.8s 0.1s ease both;
+        }
+
+        .hero p {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.45);
+            max-width: 480px;
+            line-height: 1.6;
+            animation: fadeInUp 0.8s 0.2s ease both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 36px;
+            animation: fadeInUp 0.8s 0.3s ease both;
+        }
+
+        .btn-primary {
+            padding: 12px 28px;
+            background: #fff;
+            color: #000;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary:hover { opacity: 0.85; }
+
+        .btn-secondary {
+            padding: 12px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .btn-secondary:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        footer a { color: rgba(255, 255, 255, 0.4); text-decoration: none; margin: 0 10px; }
+        footer a:hover { color: rgba(255, 255, 255, 0.7); }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">NOVAIL IA</a>
+            <ul class="nav-links">
+                <li><a href="pages/features.html">Fonctionnalités</a></li>
+                <li><a href="pages/solution.html">Solution</a></li>
+                <li><a href="pages/pricing.html">Tarifs</a></li>
+                <li><a href="pages/about.html">À propos</a></li>
+            </ul>
+            <a href="pages/contact.html" class="nav-cta">Nous contacter</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <main class="hero">
+        <span class="hero-badge">Cybersécurité nouvelle génération</span>
+
+        <h1>La sécurité de vos données,<br>sans la complexité.</h1>
+
+        <p>NOVAIL IA automatise la protection de vos données sensibles en temps réel. Simple, fiable, accessible à toutes les entreprises.</p>
+
+        <div class="hero-buttons">
+            <a href="pages/pricing.html" class="btn-primary">Voir les offres</a>
+            <a href="pages/solution.html" class="btn-secondary">Découvrir la solution</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div>
+            <a href="pages/legal-notice.html">Mentions légales</a>
+            <a href="pages/privacy-policy.html">Politique de confidentialité</a>
+            <a href="pages/contact.html">Contact</a>
+        </div>
+        <p style="margin-top: 12px;">&copy; 2026 NOVAIL IA – Projet pédagogique réalisé par Kelian (BTS SIO)</p>
+    </footer>
+
+</body>
+</html>
