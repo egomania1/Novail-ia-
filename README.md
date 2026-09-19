@@ -54,7 +54,6 @@ Novail-ia-/
 └── pages/
     ├── about.html
     ├── contact.html
-    ├── cyber-city.html
     ├── features.html
     ├── legal-notice.html
     ├── offers-vision.html
